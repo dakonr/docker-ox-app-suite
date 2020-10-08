@@ -26,7 +26,8 @@ echo "CONTEXT_ID=${OX_CONTEXT_ID}"
 
 #Start MySQL
 systemctl start mysql 
-
+#Add Open-Xchange to binary path
+echo PATH=$PATH:/opt/open-xchange/sbin/ >> ~/.bashrc && . ~/.bashrc 
 #Create config database
 /opt/open-xchange/sbin/initconfigdb \
     --configdb-user=${OX_CONFIG_DATABASE_USER} \
@@ -58,7 +59,7 @@ sed -i 's/# com.openexchange.capability.spreadsheet/com.openexchange.capability.
     /opt/open-xchange/etc/documents.properties
 
 #Start OX
-systemctl start open-xchange
+systemctl restart open-xchange
 
 #Server instance registration
 while ! /opt/open-xchange/sbin/registerserver \
